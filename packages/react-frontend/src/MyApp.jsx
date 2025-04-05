@@ -12,13 +12,18 @@ function MyApp() {
         setCharacters(updated);
     }
 
+    function updateList(person) {
+        // Makes new array with everything already in characters, then adds new person to it
+        setCharacters([...characters, person]);
+    }
+
     return(
         <div className="container">
             <Table 
-                characterData={characters} 
-                removeCharacter={removeOneCharacter}
+                characterData = {characters} 
+                removeCharacter = {removeOneCharacter}
             />
-            <Form />
+            <Form handleSubmit = {updateList} />
         </div>
     );
 }
