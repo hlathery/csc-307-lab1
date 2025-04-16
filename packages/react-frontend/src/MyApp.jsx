@@ -31,7 +31,16 @@ function MyApp() {
 
   function updateList(person) {
     postUsers(person)
-      .then((res) => setCharacters([...characters, person]))
+      .then((res) => {
+        if (res.status === 201) {
+					return res.json();
+        } else {
+          console.log("Unsucesfully created, status code:", res.status);
+        }
+      })
+			.then((json) => {
+				setCharacters((prev) => [...prev, json.added]);
+			})
       .catch((error) => {
         console.log(error);
       });

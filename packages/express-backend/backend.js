@@ -48,6 +48,22 @@ function findByFilter({ name, job }) {
   });
 }
 
+function createUniqueId() {
+  let id = "";
+  const characters = "0123456789abcdefghijklmnopqrstuvwxyz";
+  // creates array containing all currently added ids so they wont be used again
+  const currentIds = users.users_list.map((user) => user.id)
+
+  while (true) {
+    for (let i = 0; i < 6; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      id += characters[randomIndex];
+    }
+    if (!currentIds.includes(id)) break;
+  }
+  return id;
+}
+
 function findUserById(id) {
   return users["users_list"].find((user) => user["id"] === id);
 }
@@ -93,9 +109,9 @@ app.get("/users/:id", (req, res) => {
 });
 
 app.post("/users", (req, res) => {
-  const userToAdd = req.body;
+  const userToAdd = {id:createUniqueId(), ...req.body};
   addUser(userToAdd);
-  res.send();
+  res.status(201).send({ added: userToAdd });
 });
 
 app.delete("/users/:id", (req, res) => {
