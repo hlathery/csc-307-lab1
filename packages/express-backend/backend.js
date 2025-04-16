@@ -52,7 +52,7 @@ function createUniqueId() {
   let id = "";
   const characters = "0123456789abcdefghijklmnopqrstuvwxyz";
   // creates array containing all currently added ids so they wont be used again
-  const currentIds = users.users_list.map((user) => user.id)
+  const currentIds = users.users_list.map((user) => user.id);
 
   while (true) {
     for (let i = 0; i < 6; i++) {
@@ -109,7 +109,7 @@ app.get("/users/:id", (req, res) => {
 });
 
 app.post("/users", (req, res) => {
-  const userToAdd = {id:createUniqueId(), ...req.body};
+  const userToAdd = { id: createUniqueId(), ...req.body };
   addUser(userToAdd);
   res.status(201).send({ added: userToAdd });
 });
@@ -120,7 +120,7 @@ app.delete("/users/:id", (req, res) => {
   if (result === undefined) {
     res.status(404).send("Resource not found");
   } else {
-    res.send({ removed: result });
+    res.status(204).send();
   }
 });
 

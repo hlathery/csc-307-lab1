@@ -16,17 +16,32 @@ function MyApp() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(person),
+      body: JSON.stringify(person)
     });
 
     return promise;
   }
 
+	function deleteUser(person) {
+		const promise = fetch(`http://localhost:8000/users/${person.id}`, {
+			method: "DELETE"
+		});
+		return promise;
+	}
+
   function removeOneCharacter(index) {
     const updated = characters.filter((character, i) => {
       return i !== index;
     });
-    setCharacters(updated);
+		deleteUser(characters[index])
+			.then((res) => {
+				if (res.status === 204) {
+					setCharacters(updated)
+				}
+			})
+			.catch((error) => {
+				console.log(error);
+			})
   }
 
   function updateList(person) {
