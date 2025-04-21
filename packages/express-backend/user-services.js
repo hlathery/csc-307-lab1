@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import userModel from "./user.js";
-import dotenv from 'dotenv'
-dotenv.config()
+import dotenv from "dotenv";
+dotenv.config();
 
 mongoose.set("debug", true);
 
@@ -37,7 +37,7 @@ function findUserById(id) {
 }
 
 function findUserByNameAndJob(name, job) {
-  return userModel.find({ name: name, job: job});
+  return userModel.find({ name: name, job: job });
 }
 
 function addUser(user) {
@@ -59,4 +59,4 @@ export default {
   findUserByNameAndJob,
   addUser,
   removeUserById,
-}
+};
